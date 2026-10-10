@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Learn technical support, investigate synthetic cases, practice customer communication and build lasting troubleshooting skills.">
+  <title>SupportLab — Technical Support Workspace</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to workspace</a>
+  <header class="topbar">
+    <a class="brand" href="#home"><span class="brand-mark">S</span><span><strong>SupportLab</strong><span>Technical Support Workspace</span></span></a>
+    <div class="header-actions"><span class="mode-label"><span class="status-dot"></span> Personal workspace</span><button id="menuToggle" class="secondary-button" aria-expanded="false" aria-controls="sidebar">Menu</button></div>
+  </header>
+  <div class="app-layout">
+  <aside class="sidebar" id="sidebar"><p class="nav-label">YOUR WORKSPACE</p><nav id="navigation" class="tabs" aria-label="Workspace sections"></nav><div class="sidebar-note"><span class="status-dot"></span><strong>Learn by doing.</strong><p>Small steps. Clear evidence.<br>Better support decisions.</p><a href="#about">The SupportLab story ↗</a></div></aside>
+  <main class="shell" id="workspace" tabindex="-1">
+    <div class="workspace-intro"><div><p class="eyebrow">YOUR NEXT CHAPTER IN SUPPORT</p><h1>Build confidence.<br><span>One decision at a time.</span></h1><p>A connected space to learn, investigate, communicate and improve.</p></div><a href="#ai" class="hero-coach"><span class="ai-spark">✦</span><strong>Meet your free AI coach</strong><span>On your device.<br>Ready when you are.</span><b aria-hidden="true">↗</b></a></div>
+    <div id="notice" class="feedback caution" hidden role="status"></div>
+    <div id="page"></div>
+  </main>
+  </div>
+  <dialog id="lesson" aria-labelledby="lessonTitle"><div id="lessonContent"></div></dialog>
+  <footer>SupportLab · Synthetic training scenarios · Progress stays in this browser. <a href="#about">About the project</a></footer>
+  <script src="data.js"></script>
+  <script src="app.js"></script><script src="ai.js"></script>
+</body>
+</html>
+
