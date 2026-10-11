@@ -60,5 +60,7 @@ next-env.d.ts
 /work/
 
 # Generated browser runtime; rebuilt from locked dependencies.
-/vendor/
+/vendor/*
+!/vendor/shadcn-tailwind-4.13.0.css
+!/vendor/shadcn-tailwind-4.13.0.LICENSE.md
 /public/vendor/
