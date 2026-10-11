@@ -2,6 +2,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
+import {spawn} from 'node:child_process';
 const root=fileURLToPath(new URL('../',import.meta.url));
 export async function startPreview({port=4173}={}){
  const server=http.createServer(async(req,res)=>{
@@ -18,5 +19,28 @@ export async function startPreview({port=4173}={}){
  await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(port,'127.0.0.1',resolve);});
  return server;
 }
-if(typeof process!=='undefined'&&process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){await startPreview();console.log('SupportLab preview: http://127.0.0.1:4173');}
-
+if(typeof process!=='undefined'&&process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
+ let server;
+ try{
+  server=await startPreview();
+  const address='http://127.0.0.1:4173/';
+  await new Promise((resolve,reject)=>{
+   const request=http.get(address,response=>{
+    let body='';response.setEncoding('utf8');response.on('data',chunk=>body+=chunk);
+    response.on('end',()=>response.statusCode===200&&body.includes('SupportLab')?resolve():reject(new Error('The website did not return the expected page.')));
+   });
+   request.setTimeout(5000,()=>request.destroy(new Error('The local connection check timed out.')));
+   request.on('error',reject);
+  });
+  console.log('\nSupportLab is ready: '+address+'\nConnection check passed. Keep this window open while using the website.\nPress Ctrl+C to stop.');
+  if(process.argv.includes('--open')&&process.platform==='win32'){
+   const browser=spawn('explorer.exe',[address],{windowsHide:true,stdio:'ignore'});
+   browser.on('error',()=>console.log('Could not open your browser automatically. Paste the address above into Chrome or Edge.'));
+  }
+ }catch(error){
+  if(server){server.closeAllConnections();server.close();}
+  console.error('\nSupportLab could not start: '+error.message);
+  if(error.code==='EADDRINUSE')console.error('Port 4173 is already in use. Close the previous SupportLab launcher and try again.');
+  console.error('Copy this message when asking for help.');process.exitCode=1;
+ }
+}

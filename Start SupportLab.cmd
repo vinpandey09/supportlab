@@ -8,9 +8,9 @@ echo Please install Node.js 22 or later from https://nodejs.org and reopen this 
 pause
 exit /b 1
 :systemnode
-node scripts\preview.mjs
+node scripts\preview.mjs --open
 goto finished
 :codexnode
-"%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" scripts\preview.mjs
+"%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" scripts\preview.mjs --open
 :finished
 pause
